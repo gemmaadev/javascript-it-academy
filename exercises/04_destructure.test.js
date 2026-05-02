@@ -1,89 +1,100 @@
-const noop = () => {}
+const noop = () => {};
 
 const getAddress = () => ({
-    city: 'Salt Lake City',
-    state: 'UT',
-    zip: 84115,
-    coords: {
-      lat: 40.776608,
-      long: -111.920485,
-    },
-  })
+  city: "Salt Lake City",
+  state: "UT",
+  zip: 84115,
+  coords: {
+    lat: 40.776608,
+    long: -111.920485,
+  },
+});
 
-const getNumbers = () => [1, 2, 3, 4, 5, 6]
+const getNumbers = () => [1, 2, 3, 4, 5, 6];
 
-const getNestedNumbers = () => [1, 2, [3, 4, [5, 6]]]
+const getNestedNumbers = () => [1, 2, [3, 4, [5, 6]]];
 
-
-test('04_destructure-1: can be used to pull apart objects', () => {
+test("04_destructure-1: can be used to pull apart objects", () => {
   // Utilitzant desestructuració, crida `getAddress()` per crear variables per 'city', 'state' i 'zip'.
   // const address = getAddress();
   // const city = address.city;
   // const state = address.state;
   // const zip = address.zip;
-  expect(city).toBe('Salt Lake City')
-  expect(state).toBe('UT')
-  expect(zip).toBe(84115)
-})
 
-test('04_destructure-2: sets missing values to undefined', () => {
+  const { city, state, zip } = getAddress();
+
+  expect(city).toBe("Salt Lake City");
+  expect(state).toBe("UT");
+  expect(zip).toBe(84115);
+});
+
+test("04_destructure-2: sets missing values to undefined", () => {
   // Utilitzant desestructuració, crida `getAddress()` i crea una variable 'address'.
-  expect(address).toBeUndefined()
-})
+  const { address } = getAddress();
+  expect(address).toBeUndefined();
+});
 
-test('04_destructure-3: can be used to pull apart objects', () => {
+test("04_destructure-3: can be used to pull apart objects", () => {
   // Utilitzant desestructuració, crida `getAddress()` i crea les variables 'city', 'state' i 'zip'.
-  
-  expect(city).toBe('Salt Lake City')
-  expect(state).toBe('UT')
-  expect(zip).toBe(84115)
-})
+  const { city, state, zip } = getAddress();
 
-test('04_destructure-4: sets missing values to undefined', () => {
+  expect(city).toBe("Salt Lake City");
+  expect(state).toBe("UT");
+  expect(zip).toBe(84115);
+}); //Aquest exercici està duplicat
+
+test("04_destructure-4: sets missing values to undefined", () => {
   // Utilitzant desestructuració, crida `getAddress()` i crea una variable 'address'.
-  
-  expect(address).toBeUndefined()
-})
+  const { address } = getAddress();
+  expect(address).toBeUndefined();
+}); //Aquest exercici està duplicat
 
-test('04_destructure-5: can alias destructured variables', () => {
+test("04_destructure-5: can alias destructured variables", () => {
   // Utilitzant desestructuració, crida `getAddress()` i extreu 'city', 'state' i 'zip', i assigna'ls els àlies c, s, z, respectivament.
-  
-  expect(c).toBe('Salt Lake City')
-  expect(s).toBe('UT')
-  expect(z).toBe(84115)
-  expect(() => noop(city)).toThrow()
-  expect(() => noop(state)).toThrow()
-  expect(() => noop(zip)).toThrow()
-})
 
-test('04_destructure-6: can destructure nested variables', () => {
+  const { city: c, state: s, zip: z } = getAddress();
+
+  expect(c).toBe("Salt Lake City");
+  expect(s).toBe("UT");
+  expect(z).toBe(84115);
+  expect(() => noop(city)).toThrow();
+  expect(() => noop(state)).toThrow();
+  expect(() => noop(zip)).toThrow();
+});
+
+test("04_destructure-6: can destructure nested variables", () => {
   // Utilitzant desestructuració, crida `getAddress()` i crea les variables `lat` i `long`.
-  
-  expect(lat).toBe(40.776608)
-  expect(long).toBe(-111.920485)
-  expect(() => noop(coords)).toThrow()
-})
+  const {
+    coords: { lat, long },
+  } = getAddress();
 
-test('04_destructure-7: can be used to pull apart arrays', () => {
+  expect(lat).toBe(40.776608);
+  expect(long).toBe(-111.920485);
+  expect(() => noop(coords)).toThrow();
+});
+
+test("04_destructure-7: can be used to pull apart arrays", () => {
   // Crida a getNumbers i extreu el primer valor com `one` i el segon com `two`.
-  
-  expect(one).toBe(1)
-  expect(two).toBe(2)
-})
+  const [one, two] = getNumbers();
 
-test('04_destructure-8: can skip indexes in arrays', () => {
+  expect(one).toBe(1);
+  expect(two).toBe(2);
+});
+
+test("04_destructure-8: can skip indexes in arrays", () => {
   // Crida a getNumbers i extreu el primer valor com `one` i el tercer com `three`.
-  
-  expect(one).toBe(1)
-  expect(three).toBe(3)
-  expect(() => noop(two)).toThrow()
-})
+  const [one, , three] = getNumbers();
 
-test('04_destructure-9: can reach nested arrays', () => {
+  expect(one).toBe(1);
+  expect(three).toBe(3);
+  expect(() => noop(two)).toThrow();
+});
+
+test("04_destructure-9: can reach nested arrays", () => {
   // Crida a getNestedNumbers i extreu el primer valor com `one`, el 3 com `three` i el 6 com `six`.
-  
-  expect(one).toBe(1)
-  expect(three).toBe(3)
-  expect(six).toBe(6)
-})
+  const [one, , [three, , [, six]]] = getNestedNumbers();
 
+  expect(one).toBe(1);
+  expect(three).toBe(3);
+  expect(six).toBe(6);
+});
