@@ -8,71 +8,69 @@ const pickApple = (ripeness) => {
   return new Promise((resolve, reject) => {
     // Fes alguna cosa asíncrona. Podria ser AJAX, utilitzant un timeout aquí.
     setTimeout(() => {
-      if (ripeness === 'ripe') {
-        resolve('ripe apple')
-      } else if (ripeness === 'unripe') {
-        reject('unripe apple')
+      if (ripeness === "ripe") {
+        resolve("ripe apple");
+      } else if (ripeness === "unripe") {
+        reject("unripe apple");
       } else {
-        reject(new Error('out of apples'))
+        reject(new Error("out of apples"));
       }
-    })
-  })
-}
+    });
+  });
+};
 
-test('14_promises-1: should resolve', () => {
-  return pickApple('ripe')
+test("14_promises-1: should resolve", () => {
+  return pickApple("ripe")
     .then(
-      result => {
+      (result) => {
         // throw new Error('això no s'hauria d'executar')
-        // expect(result).toBe(/*INTRODUEIX LA TEVA RESPOSTA AQUÍ*/)
-        throw new Error('assert o llança aquí')
+        expect(result).toBe("ripe apple");
+        // throw new Error("assert o llança aquí");
       },
-      error => {
-        // throw new Error('això no s'hauria d'executar')
-        // expect(error).toBe(/*INTRODUEIX LA TEVA RESPOSTA AQUÍ*/)
-        throw new Error('assert o llança aquí')
+      (error) => {
+        throw new Error("això no s'hauria d'executar");
+        // expect(error).toBe("unripe apple")
+        // throw new Error("assert o llança aquí");
       },
     )
-    .catch(error => {
-      // throw new Error('això no s'hauria d'executar')
+    .catch((error) => {
+      throw new Error("això no s'hauria d'executar");
       // expect(error).toBe(/*INTRODUEIX LA TEVA RESPOSTA AQUÍ*/)
-      throw new Error('assert o llança aquí')
-    })
-})
+      // throw new Error("assert o llança aquí");
+    });
+});
 
-test('14_promises-2: should reject', () => {
-  return pickApple('unripe')
+test("14_promises-2: should reject", () => {
+  return pickApple("unripe")
     .then(
-      result => {
-        // throw new Error('això no s'hauria d'executar')
+      (result) => {
+        throw new Error("això no s'hauria d'executar");
         // expect(result).toBe(/*INTRODUEIX LA TEVA RESPOSTA AQUÍ*/)
-        throw new Error('assert o llança aquí')
+        // throw new Error("assert o llança aquí");
       },
-      error => {
+      (error) => {
         // throw new Error('això no s'hauria d'executar')
-        // expect(error).toBe(/*INTRODUEIX LA TEVA RESPOSTA AQUÍ*/)
-        throw new Error('assert o llança aquí')
+        expect(error).toBe("unripe apple");
+        // throw new Error("assert o llança aquí");
       },
     )
-    .catch(error => {
-      // throw new Error('això no s'hauria d'executar')
+    .catch((error) => {
+      throw new Error("això no s'hauria d'executar");
       // expect(error).toBe(/*INTRODUEIX LA TEVA RESPOSTA AQUÍ*/)
-      throw new Error('assert o llança aquí')
-    })
-})
+      // throw new Error("assert o llança aquí");
+    });
+});
 
-test('14_promises-3: errors can be caught', () => {
+test("14_promises-3: errors can be caught", () => {
   return pickApple()
-    .then(result => {
-      // throw new Error('això no s'hauria d'executar')
+    .then((result) => {
+      throw new Error("això no s'hauria d'executar");
       // expect(result).toBe(/*INTRODUEIX LA TEVA RESPOSTA AQUÍ*/)
-      throw new Error('assert o llança aquí')
+      // throw new Error("assert o llança aquí");
     })
-    .catch(error => {
+    .catch((error) => {
       // throw new Error('això no s'hauria d'executar')
-      // expect(error).toBe(/*INTRODUEIX LA TEVA RESPOSTA AQUÍ*/)
-      throw new Error('assert o llança aquí')
-    })
-})
-
-
+      expect(error.message).toBe("out of apples");
+      // throw new Error("assert o llança aquí");
+    });
+});
